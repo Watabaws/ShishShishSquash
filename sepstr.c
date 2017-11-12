@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 
 void test(){
 	char line[100] = "wow-this-is-cool";
@@ -14,34 +15,32 @@ void test(){
 }
 
 char ** parse_args( char * line ){
-	char * sepped = line;
-	int ctr = 5;
+	int ctr = 6;
 	int i;
 
-	char ** args = (char **)calloc(ctr, 256);
+	char ** args = (char **)calloc(ctr, sizeof(char *));
 
-	for(i = 0; i < ctr-1; i++){
-		printf("Something happened\n");
-		sepped = strsep(&sepped, " ");
-		printf("Something happened\n");
-		args[i] = (char *)malloc(strlen(sepped));
-		printf("%s\n", args[i]);
+	for(i = 0; line; i++){
+	  args[i] = strsep(&line, " ");
+	  //	  printf("error: %s\n", strerror(errno));
+	  //printf("%s\n", args[i]);
 	}
-	args[i + 1] = 0;
+	args[i] = NULL; // null terminate array
 
 	return args;
 }
 
 int main(){
 	//test();
+        char teststr[50] = "ls -a -l";
 
-	char ** args = parse_args( "hi how u" );
-	printf("Done\n");
+	char ** args = parse_args( teststr );
+	printf("\n--Done--\n");
 	int i = 0;
 	for(;i < 4; i++){
 		printf("%s	\n", args[i]);
 	}
-	//execvp(args[0], args);
+	execvp(args[0], args);
 
 	return 0;
 }
