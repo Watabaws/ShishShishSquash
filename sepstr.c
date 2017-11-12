@@ -35,8 +35,9 @@ int main(){
         char teststr[50] = "ls -a -l";
 
 	char ** args = parse_args( teststr );
-	printf("\n--Done--\n");
+	printf("done parsing\n");
 	int i = 0;
+	printf("printing args...\n");
 	for(;i < 4; i++){
 		printf("%s	\n", args[i]);
 	}
