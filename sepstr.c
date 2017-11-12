@@ -25,8 +25,6 @@ char ** parse_args( char * line ){
 		sepped = strsep(&sepped, " ");
 		printf("Something happened\n");
 		args[i] = (char *)malloc(strlen(sepped));
-		printf("Something happened\n");
-		args[i] = word;
 		printf("%s\n", args[i]);
 	}
 	args[i + 1] = 0;
